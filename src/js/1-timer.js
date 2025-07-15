@@ -9,7 +9,86 @@ import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 
 
-f// 🔧 Готова функція з документації
+const startBtn = document.querySelector('[data-start]');
+const input = document.querySelector('#datetime-picker');
+const daysSpan = document.querySelector('[data-days]');
+const hoursSpan = document.querySelector('[data-hours]');
+const minutesSpan = document.querySelector('[data-minutes]');
+const secondsSpan = document.querySelector('[data-seconds]');
+
+let userSelectedDate = null;
+let intervalId = null;
+
+startBtn.disabled = true;
+
+const options = {
+  enableTime: true,
+  time_24hr: true,
+  defaultDate: new Date(),
+  minuteIncrement: 1,
+  onClose(selectedDates) {
+    const selectedDate = selectedDates[0];
+    if (selectedDate <= new Date()) {
+      iziToast.error({ 
+        title: 'Error', 
+        titleColor: '#fff',
+        icon: '',
+        iconUrl:  '../img/left-icon.svg',
+        iconColor: '#fff',
+        class: 'with-custom-svg',
+        messageColor: '#fff',
+        backgroundColor: ' #ef4040',
+        message: 'Please choose a date in the future', 
+        position: 'topRight',
+        progressBar: true, 
+        close: true,
+
+      
+      });
+      startBtn.disabled = true;
+       
+    } else {
+      userSelectedDate = selectedDate;
+      startBtn.disabled = false;
+    }
+  },
+};
+
+flatpickr("#datetime-picker", options);
+
+startBtn.addEventListener('click', () => {
+  startBtn.disabled = true;
+  input.disabled = true;
+
+  intervalId = setInterval(() => {
+    const now = new Date();
+    const diff = userSelectedDate - now;
+
+    if (diff <= 0) {
+      clearInterval(intervalId);
+      updateTimer(0);
+input.disabled = false; 
+return;
+      return;
+    }
+
+    updateTimer(diff);
+  }, 1000);
+});
+
+function updateTimer(ms) {
+  const { days, hours, minutes, seconds } = convertMs(ms);
+
+  daysSpan.textContent = addLeadingZero(days);
+  hoursSpan.textContent = addLeadingZero(hours);
+  minutesSpan.textContent = addLeadingZero(minutes);
+  secondsSpan.textContent = addLeadingZero(seconds);
+}
+
+function addLeadingZero(value) {
+  return String(value).padStart(2, '0');
+}
+
 function convertMs(ms) {
   const second = 1000;
   const minute = second * 60;
@@ -24,65 +103,3 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
-// 🔹 Отримуємо всі DOM-елементи
-const startButton = document.querySelector('[data-start]');
-const dateInput = document.querySelector('#datetime-picker');
-const daysSpan = document.querySelector('[data-days]');
-const hoursSpan = document.querySelector('[data-hours]');
-const minutesSpan = document.querySelector('[data-minutes]');
-const secondsSpan = document.querySelector('[data-seconds]');
-
-let userSelectedDate;
-let timerId = null;
-
-// ❌ Кнопка Start неактивна спочатку
-startButton.disabled = true;
-
-// 🔹 Flatpickr з onClose
-flatpickr('#datetime-picker', {
-  enableTime: true,
-  time_24hr: true,
-  defaultDate: new Date(),
-  minuteIncrement: 1,
-  onClose(selectedDates) {
-    const selectedDate = selectedDates[0];
-    const now = new Date();
-
-    if (selectedDate <= now) {
-      window.alert("Please choose a date in the future");
-      startButton.disabled = true;
-    } else {
-      userSelectedDate = selectedDate;
-      startButton.disabled = false;
-    }
-  },
-});
-
-// 🔄 Оновлення елементів інтерфейсу
-function updateTimerElements({ days, hours, minutes, seconds }) {
-  daysSpan.textContent = String(days).padStart(2, '0');
-  hoursSpan.textContent = String(hours).padStart(2, '0');
-  minutesSpan.textContent = String(minutes).padStart(2, '0');
-  secondsSpan.textContent = String(seconds).padStart(2, '0');
-}
-
-// ▶️ Обробник кнопки Start
-startButton.addEventListener('click', () => {
-  startButton.disabled = true;
-  dateInput.disabled = true;
-
-  timerId = setInterval(() => {
-    const now = new Date();
-    const diff = userSelectedDate - now;
-
-    if (diff <= 0) {
-      clearInterval(timerId);
-      updateTimerElements({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-      dateInput.disabled = false;
-      return;
-    }
-
-    const time = convertMs(diff);
-    updateTimerElements(time);
-  }, 1000);
-});
