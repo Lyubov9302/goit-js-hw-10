@@ -3,6 +3,8 @@ import iziToast from "izitoast";
 // Додатковий імпорт стилів
 import "izitoast/dist/css/iziToast.min.css";
 
+import icon from '../img/check-icon-snackbar.svg';
+
 
 const form = document.querySelector('.form');
 
@@ -28,7 +30,7 @@ form.addEventListener('submit', function (event) {
         title: '',
         titleColor: '#fff',
         icon: '',
-        iconUrl: '../img/check-icon-snackbar.svg',
+        iconUrl: icon,
         message: `Fulfilled promise in ${delay}ms`,
         messageColor: '#fff',
         position: 'topRight',

@@ -8,6 +8,8 @@ import iziToast from "izitoast";
 // Додатковий імпорт стилів
 import "izitoast/dist/css/iziToast.min.css";
 
+import icon from '../img/left-icon-timer.svg';
+
 
 const startBtn = document.querySelector('[data-start]');
 const input = document.querySelector('#datetime-picker');
@@ -33,7 +35,7 @@ const options = {
         title: 'Error', 
         titleColor: '#fff',
         icon: '',
-        iconUrl:  '../img/left-icon-timer.svg',
+        iconUrl: icon,
   
         messageColor: '#fff',
         backgroundColor: ' #ef4040',
