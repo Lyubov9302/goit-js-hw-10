@@ -8,7 +8,7 @@ import iziToast from "izitoast";
 // Додатковий імпорт стилів
 import "izitoast/dist/css/iziToast.min.css";
 
-import icon from '../img/left-icon-timer.svg';
+import iconTimer from '../img/left-icon-timer.svg';
 
 
 const startBtn = document.querySelector('[data-start]');
@@ -35,7 +35,7 @@ const options = {
         title: 'Error', 
         titleColor: '#fff',
         icon: '',
-        iconUrl: icon,
+        iconUrl: iconTimer,
   
         messageColor: '#fff',
         backgroundColor: ' #ef4040',
