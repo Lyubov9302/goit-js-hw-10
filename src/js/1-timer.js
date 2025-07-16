@@ -33,17 +33,16 @@ const options = {
         title: 'Error', 
         titleColor: '#fff',
         icon: '',
-        iconUrl:  '../img/left-icon.svg',
-        iconColor: '#fff',
-        class: 'with-custom-svg',
+        iconUrl:  '../img/left-icon-timer.svg',
+  
         messageColor: '#fff',
         backgroundColor: ' #ef4040',
         message: 'Please choose a date in the future', 
         position: 'topRight',
         progressBar: true, 
         close: true,
-
-      
+        theme: 'dark',
+       
       });
       startBtn.disabled = true;
        
@@ -69,7 +68,6 @@ startBtn.addEventListener('click', () => {
       updateTimer(0);
 input.disabled = false; 
 return;
-      return;
     }
 
     updateTimer(diff);

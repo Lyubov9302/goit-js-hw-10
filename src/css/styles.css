@@ -43,11 +43,45 @@ color: #2e2f42;
 text-transform: uppercase;
 }
 
-.iziToast.error-close {
-  color: #fff;
+
+/* snackbar */
+
+.create-btn {
+display: block;
+border-radius: 8px;
+padding: 8px 16px;
+min-width: 360px;
+height: 40px;
+border: transparent;
+background-color: #4e75ff;
+font-weight: 500;
+font-size: 16px;
+line-height: 1.5;
+letter-spacing: 0.04em;
+color: #fff;
 }
 
 
 
+.form {
+  width: 360px;
+}
+
+
+.label-form {
+display: flex;
+flex-direction: column;
+gap: 8px;
+margin-bottom: 16px;
+}
+
+.label-form input {
+height: 40px;
+}
+
+
+.fieldset-form {
+margin-bottom: 24px;
+}
 
 
